@@ -1,0 +1,3 @@
+level=CHAR
+alignmentFormat=LINES
+ignoredChars=,.'";:!?()[]{}<>`-+=/\$@%#|&^*_~
