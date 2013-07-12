@@ -1,4 +1,4 @@
-﻿Recursive Text Alignment Tool (RETAS V1.0) Copyright (C) 2013 by the University of Massachusetts at Amherst released under the GNU  GPL v3.0 (see license.txt)
+﻿Recursive Text Alignment Tool Copyright (C) 2013 by the University of Massachusetts at Amherst released under the GNU  GPL v3.0 (see license.txt)
 
 Written by I. Zeki Yalniz
 
@@ -95,3 +95,11 @@ Stats sts[] = RecursiveAlignmentTool.processSingleJob_getAlignmentStatsOnly(
 			
 sts[0] contains the word level alignment statistics
 sts[1] contains the character level alignment statistics
+
+CHANGE LOG
+==========
+2013-06-03  I. Zeki Yalniz  <zeki@cs.umass.edu>
+    * Initial version V1.0.
+	
+2013-07-12  Michael Zarozinski  <MichaelZ@cs.umass.edu>
+    * RecursiveAlignmentTool.java:	V1.1	Fixed issue where long stretches of words (~400K+) between anchors would cause and ArrayIndexOutOfBoundsException. Refactored the character alignment logic to reduce the number of nested if-then statements.  
