@@ -1,21 +1,9 @@
 /*  Copyright (C) <2013>  University of Massachusetts Amherst
 
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.  
- */
-/*
+ Released under the BSD 3-clause license (see license.txt)  
+ 
  RECURSIVE ALIGNMENT TOOL for OCR Evaluation
- Version 1.1
+ Version 1.2
  
  @author Ismet Zeki Yalniz
  University of Massachusetts-Amherst
@@ -33,8 +21,8 @@
  4 - There are several constants MAX_SEGMENT_LENGTH, MAX_DYNAMIC_TABLE_SIZE and MAX_NUMBER_OF_CANDIDATE_ANCHORS. Using a different configuration may help improve the alignment speed. The default (recommended) values are given below in the code.
  5 - The "edit distance" alignment code (params: insCost = delCost = 1, repCost = 2) uses the conventional dynamic programming algorithm. It uses O(n^2) space. One can implement an O(n) space version using a binary recursion, however, this would work two times slower. Therefore we use the original algorithm with a limit on the maximum size of the dynamic programming table (MAX_DYNAMIC_TABLE_SIZE). Using larger tables makes the computation take longer and can cause out-of-memory errors.
  6 - MAX_SEGMENT_LENGTH specifies the base condition for recursion. If the text segments become shorter than this threshold, than the recursion is terminated and the alignment is carried out using a dynamic programming approach. Notice that MAX_DYNAMIC_TABLE_SIZE and MAX_SEGMENT_LENGTH are correlated.  
- 7 - MAX_NUMBER_OF_CANDIDATE_ANCHORS limits the total number of common unique words used for LCS alignment at the coarse level. The first MAX_NUMBER_OF_CANDIDATE_ANCHORS of them are used for splitting the text into shorter pieces. The last segment is therefore expected to be larger if the text is long and accomodates a larger number of unique words. This help improve the speed by avoiding the LCS computation for long sequences. Larger values may help produce more accurate alignments. Preliminary experiments on 1261 scanned book pairs suggest that the total number of matching chars/words is not significantly effected by varying this constant between 100 and 20000 (the change is less than 0.01%). But the speed improvement is drastical for long noisy texts.
- 8 - The TextPreprocessor merges hypenated words before the alignment. If this is not necessary, one could skip the text preprocessing step to improve the speed. The bottleneck is the I/O time. 
+ 7 - MAX_NUMBER_OF_CANDIDATE_ANCHORS limits the total number of common unique words used for LCS alignment at the coarse level. The first MAX_NUMBER_OF_CANDIDATE_ANCHORS of them are used for splitting the text into shorter pieces. The last segment is therefore expected to be larger if the text is long and accommodates a larger number of unique words. This help improve the speed by avoiding the LCS computation for long sequences. Larger values may help produce more accurate alignments. Preliminary experiments on 1261 scanned book pairs suggest that the total number of matching chars/words is not significantly effected by varying this constant between 100 and 20000 (the change is less than 0.01%). But the speed improvement is drastic for long noisy texts.
+ 8 - The TextPreprocessor merges hyphenated words before the alignment. If this is not necessary, one could skip the text preprocessing step to improve the speed. The bottleneck is the I/O time. 
  9 - Please see the comments in the code for other specifications. 
   
  NOTE: The alignment is case sensitive. One can obtain a case-insensitive alignment by preprocessing the input documents accordingly. 
@@ -258,7 +246,7 @@ public class RecursiveAlignmentTool {
         // GT :	Max the cat
         // if we kept the spaces in the original text we'd have to keep track that
         // the "x" in the OCR text is the last token and we can ignore the space
-        // afer it which does not exist in the original text since the alignment added it.
+        // after it which does not exist in the original text since the alignment added it.
         // Since we've already verified the word level alignment, and that's what the
         // character level alignment uses as input, it's safe to ignore spaces. 
 
@@ -318,7 +306,7 @@ public class RecursiveAlignmentTool {
 
     // STAGE 2: based on word level alignment, align all the characters
     // Michael Z    7/2013   Modified to avoid ArrayIndexOutOfBoundsException when there
-    // are long streteches without an anchor word. To avoid that, we only build the "accumulator"
+    // are long stretches without an anchor word. To avoid that, we only build the "accumulator"
     // array when we need it for the alignment and we're assured all the words will fit in the array.
     private void charAlignSubsequences() {
         int EXPECTED_WORD_LENGTH_IN_CHARACTERS = 5; // for memory pre-allocation
@@ -337,7 +325,7 @@ public class RecursiveAlignmentTool {
         String cand, ref;
         for (int i = 0; i <= alignment.size(); i++) {
 
-            if (alignment.size() == i) { // dont forget the last text segment
+            if (alignment.size() == i) { // don't forget the last text segment
                 cand = "";
                 ref = "";
             } else {
@@ -729,10 +717,9 @@ public class RecursiveAlignmentTool {
 
         // System.out.println(".,;:=-+/'`&|$#@!%^*()[]_\"}{\\<>?~");
         int argc = args.length;
-        String USAGE = "\nRecursive Text Alignment Tool (RETAS V1.0) Copyright (C) 2013 by the University of Massachusetts at Amherst\n"
+        String USAGE = "\nRecursive Text Alignment Tool (RETAS V1.2) Copyright (C) 2013 by the University of Massachusetts at Amherst\n"
                 + "\nThis program comes with ABSOLUTELY NO WARRANTY. "
-                + "This is free software, and you are welcome to redistribute it under certain conditions;"
-                + " see the attached GNU licence for details.\n"
+                + "See the attached licence for details.\n"
                 + "\nUSAGE: java RecursiveAligmentTool <refFilename> <candFilename> <outputFilename> -opt <configFile>\n\n"
                 + "<refFilename> is the reference text filename\n"
                 + "<candFilename> is the candidate (OCR output) text filename\n"

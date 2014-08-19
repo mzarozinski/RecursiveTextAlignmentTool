@@ -1,4 +1,4 @@
-﻿Recursive Text Alignment Tool Copyright (C) 2013 by the University of Massachusetts at Amherst released under the GNU  GPL v3.0 (see license.txt)
+﻿Recursive Text Alignment Tool Copyright (C) 2013 by the University of Massachusetts at Amherst released under the BSD 3-clause license (see license.txt).
 
 Written by I. Zeki Yalniz
 

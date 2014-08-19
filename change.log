@@ -5,3 +5,6 @@
 	
 2013-07-12  Michael Zarozinski  <MichaelZ@cs.umass.edu>
     * RecursiveAlignmentTool.java:	V1.1	Fixed issue where long stretches of words (~400K+) between anchors would cause and ArrayIndexOutOfBoundsException. Refactored the character alignment logic to reduce the number of nested if-then statements.  
+
+2014-08-19 Michael Zarozinski <michaelz@cs.umass.edu> 
+    * Updated license

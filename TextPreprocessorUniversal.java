@@ -1,17 +1,6 @@
 /*  Copyright (C) <2013>  University of Massachusetts Amherst
 
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	Released under the BSD 3-clause license (see license.txt)
  */
 
 /**
@@ -41,7 +30,7 @@ public class TextPreprocessorUniversal extends TextPreprocessor {
 
             char ch = charAr[i];
 
-            // connect phonemes of words which are seperated by a dash
+            // connect phonemes of words which are separated by a dash
             // -------------------------------------------------------------
             // MERGE HYPHENATED WORDS:
             if (ch == '-' && i < (charAr.length - 1)) {
@@ -53,16 +42,14 @@ public class TextPreprocessorUniversal extends TextPreprocessor {
                     j++;
                 }
                 if (charAr[j] == '\n' || charAr[j] == '\r') {
-                    //    j++;
                     i = j;
                     continue;
                 }
-                //i = j-1;
+
             }
 
             // TODO: it is possible to speed up the following code by hashing the list of ignored characters for O(1) time look-up. Current implementation has O(k) complexity where k is the total number of characters in the ingored char list. 
             // output the char
-            //  if ( isValidChar(ch) ) {
             if (IGNORED_CHARS.indexOf(ch) == -1) {
                 output[backIndex] = ch;
                 backIndex++;
